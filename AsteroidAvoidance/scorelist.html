@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Library List Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <h2>Score List</h2>
+        <nav>
+            <a href="index.html">Game</a>
+            <a href="#">Score List</a>
+        </nav>
+        <p>list scores here</p>
+        <style>
+            button{
+                margin-left: 10px;
+            }
+        </style>
+        <script>
+            fetch('/getData').then(function(scores){
+                scores.json().then(function(thescores){
+                    console.log(scores)
+                    //append the html here
+                    for(let score of thescores.score){
+                        var scoreEmelemt = document.createElement('p')
+                        scoreElement.innerHTML = score.score
+                        document.getElementById('container').appendChild(scoreElement)
+                        
+
+                        //Add a delete button
+                        var deleteButton = document.createElement('button')
+                        deleteButton.innerText = "Delete Score"
+                        deleteButton.addEventListener('click', function deleteScore(){
+                            location.reload()
+                            fetch('deleteScore', {
+                                method:"POST",
+                                headers:{
+                                    "Content-Type":"application/json"
+                                },
+                                body:JSON.stringify({
+                                    _id:score._id
+                                })
+                            })
+                        })
+                        scoreElement.appendChild(deleteButton)
+                    }
+
+                })
+            })
+        </script>
+    </div>
+</body>
+</html>

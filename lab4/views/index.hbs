@@ -1,0 +1,15 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+<form action="/send" method="post">
+
+    <select name="numbers" class="form-control">
+        {{{loop num}}}
+    </select>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    
+</form>
+
+
+{{{tableLoop size}}}
